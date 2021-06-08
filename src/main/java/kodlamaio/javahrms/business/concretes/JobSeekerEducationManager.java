@@ -3,10 +3,10 @@ package kodlamaio.javahrms.business.concretes;
 import kodlamaio.javahrms.business.abstracts.JobSeekerEducationService;
 import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.JobSeekerEducationDao;
-import kodlamaio.javahrms.entities.concretes.CurriculumVitae;
 import kodlamaio.javahrms.entities.concretes.JobSeekerEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +43,7 @@ public class JobSeekerEducationManager implements JobSeekerEducationService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Result add(JobSeekerEducation jobSeekerEducation) {
         this.jobSeekerEducationDao.save(jobSeekerEducation);
         return new SuccessResult(true," eğitim bilgisi eklendi");
