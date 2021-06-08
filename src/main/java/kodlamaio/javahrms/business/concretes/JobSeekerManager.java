@@ -44,6 +44,27 @@ public class JobSeekerManager implements JobSeekerService {
     }
 
     @Override
+    public Result delete(int id) {
+        if(this.jobSeekerDao.findById(id)==null){
+            return new ErrorResult(false,"Böyle bir kullanıcı yok");
+        }
+        this.jobSeekerDao.deleteById(id);
+        return new SuccessResult(true,"İş arayan silindi");
+    }
+
+    @Override
+    public Result update(JobSeeker jobSeeker, int id) {
+        for (int i=0;i<this.jobSeekerDao.findAll().size();i++){
+            JobSeeker jS=this.jobSeekerDao.getById(i);
+            if(jS.getId()==id){
+                this.jobSeekerDao.findAll().set(i,jobSeeker);
+                return new SuccessResult();
+            }
+        }
+        return new ErrorResult(false,"İş arayan bilgileri güncellenemedi");
+    }
+
+    @Override
     public Result addedJobSeekerEducation(JobSeekerEducation jobSeekerEducation) {
         this.jobSeekerEducationService.add(jobSeekerEducation);
         return new SuccessResult(true,"Okul bilgisi eklendi");
@@ -65,6 +86,54 @@ public class JobSeekerManager implements JobSeekerService {
     public Result addedCirriculumVitae(CurriculumVitae curriculumVitae) {
         this.curriculumVitaeService.add(curriculumVitae);
         return new SuccessResult(true,"Hesap linkleri ve ön yazı eklendi");
+    }
+
+    @Override
+    public Result deletedJobSeekerEducation(int id) {
+        this.jobSeekerEducationService.delete(id);
+        return new SuccessResult(true,"Eğitim bilgisi silindi");
+    }
+
+    @Override
+    public Result deletedJobSeekerJobExperience(int id) {
+        this.jobSeekerJobExperienceService.delete(id);
+        return new SuccessResult(true,"İş deneyimi bilgisi silindi");
+    }
+
+    @Override
+    public Result deletedJobSeekerLanguage(int id) {
+        this.jobSeekerLanguageService.delete(id);
+        return new SuccessResult(true,"Dil bilgisi silindi");
+    }
+
+    @Override
+    public Result deletedCurriculumVitae(int id) {
+        this.curriculumVitaeService.delete(id);
+        return new SuccessResult(true,"Özgeçmiş bilgisi silindi");
+    }
+
+    @Override
+    public Result uptadedJobSeekerEducation(JobSeekerEducation jobSeekerEducation, int id) {
+        this.jobSeekerEducationService.update(jobSeekerEducation,id);
+        return new SuccessResult(true,"Eğitim bilgisi güncellendi");
+    }
+
+    @Override
+    public Result uptadedJobExperience(JobSeekerJobExperience jobSeekerJobExperience, int id) {
+        this.jobSeekerJobExperienceService.update(jobSeekerJobExperience,id);
+        return new SuccessResult(true,"İş deneyimi bilgisi güncellendi");
+    }
+
+    @Override
+    public Result uptadedJobSeekerLanguage(JobSeekerLanguage jobSeekerLanguage, int id) {
+        this.jobSeekerLanguageService.update(jobSeekerLanguage,id);
+        return new SuccessResult(true,"Dil bilgisi güncellendi");
+    }
+
+    @Override
+    public Result uptadedCirriculumVitae(CurriculumVitae curriculumVitae, int id) {
+        this.curriculumVitaeService.update(curriculumVitae,id);
+        return new SuccessResult(true,"Öz geçmiş bilgisi güncellendi");
     }
 
     @Override

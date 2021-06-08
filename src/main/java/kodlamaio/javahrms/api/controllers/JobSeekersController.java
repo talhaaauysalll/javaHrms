@@ -53,6 +53,38 @@ public class JobSeekersController {
     public ResponseEntity<?> createCv(@RequestParam("id") int id){
         return ResponseEntity.ok(this.jobSeekerService.createCv(id));
     }
+    @DeleteMapping("/deletedJobSeekerEducation")
+    public ResponseEntity<?> deletedJobSeekerEducation(@RequestParam("id") int id){
+        return ResponseEntity.ok(this.jobSeekerService.deletedJobSeekerEducation(id));
+    }
+    @DeleteMapping("/deletedJobSeekerJobExperience")
+    public ResponseEntity<?> deletedJobSeekerExperience(@RequestParam("id") int id){
+        return ResponseEntity.ok(this.jobSeekerService.deletedJobSeekerJobExperience(id));
+    }
+    @DeleteMapping("/deletedJobSeekerLanguage")
+    public ResponseEntity<?> deletedJobSeekerLanguage(@RequestParam("id") int id){
+        return ResponseEntity.ok(this.jobSeekerService.deletedJobSeekerLanguage(id));
+    }
+    @DeleteMapping("/deletedCurriculumVitae")
+    public ResponseEntity<?> deletedCurriculumVitae(@RequestParam("id") int id){
+        return ResponseEntity.ok(this.deletedCurriculumVitae(id));
+    }
+    @PutMapping("/uptadedJobSeekerEducation")
+    public ResponseEntity<?> uptadedJobSeekerEducation(@RequestBody JobSeekerEducation jobSeekerEducation,@RequestParam("id") int id){
+        return ResponseEntity.ok(this.uptadedJobSeekerEducation(jobSeekerEducation,id));
+    }
+    @PutMapping("/uptadedJobExperience")
+    public ResponseEntity<?> uptadedJobExperience(@RequestBody JobSeekerJobExperience jobSeekerJobExperience,@RequestParam("id") int id){
+        return ResponseEntity.ok(this.uptadedJobExperience(jobSeekerJobExperience,id));
+    }
+    @PutMapping("/uptadedJobSeekerLanguage")
+    public ResponseEntity<?> uptadedJobSeekerLanguage(@RequestBody JobSeekerLanguage jobSeekerLanguage,@RequestParam("id") int id){
+        return ResponseEntity.ok(this.uptadedJobSeekerLanguage(jobSeekerLanguage,id));
+    }
+    @PutMapping("/uptadedCirriculumVitae")
+    public ResponseEntity<?> uptadedCirriculumVitae(@RequestBody CurriculumVitae curriculumVitae,@RequestParam("id") int id){
+        return ResponseEntity.ok(this.uptadedCirriculumVitae(curriculumVitae,id));
+    }
 
 
 

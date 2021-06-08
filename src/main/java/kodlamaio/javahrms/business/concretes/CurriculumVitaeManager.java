@@ -4,15 +4,9 @@ import kodlamaio.javahrms.business.abstracts.CurriculumVitaeService;
 import kodlamaio.javahrms.business.abstracts.JobSeekerEducationService;
 import kodlamaio.javahrms.business.abstracts.JobSeekerJobExperienceService;
 import kodlamaio.javahrms.business.abstracts.JobSeekerLanguageService;
-import kodlamaio.javahrms.core.utilities.results.DataResult;
-import kodlamaio.javahrms.core.utilities.results.Result;
-import kodlamaio.javahrms.core.utilities.results.SuccessDataResult;
-import kodlamaio.javahrms.core.utilities.results.SuccessResult;
+import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.CurriculumVitaeDao;
-import kodlamaio.javahrms.entities.concretes.CurriculumVitae;
-import kodlamaio.javahrms.entities.concretes.JobSeekerEducation;
-import kodlamaio.javahrms.entities.concretes.JobSeekerJobExperience;
-import kodlamaio.javahrms.entities.concretes.JobSeekerLanguage;
+import kodlamaio.javahrms.entities.concretes.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +34,27 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
     public Result add(CurriculumVitae curriculumVitae) {
         this.curriculumVitaeDao.save(curriculumVitae);
         return new SuccessResult();
+    }
+
+    @Override
+    public Result delete(int id) {
+        if(this.curriculumVitaeDao.findById(id)==null){
+            return new ErrorResult(false,"Böyle bir öz geçmiş bilgisi yok");
+        }
+        this.curriculumVitaeDao.deleteById(id);
+        return new SuccessResult(true,"Öz geçmiş bilgisi başarılı bir şekilde silindi");
+    }
+
+    @Override
+    public Result update(CurriculumVitae curriculumVitae, int id) {
+        for (int i=0;i<this.curriculumVitaeDao.findAll().size();i++){
+            CurriculumVitae cV=this.curriculumVitaeDao.getById(i);
+            if(cV.getId()==id){
+                this.curriculumVitaeDao.findAll().set(i,curriculumVitae);
+                return new SuccessResult();
+            }
+        }
+        return new ErrorResult(false,"Öz geçmiş güncellenemedi");
     }
 
     @Override

@@ -3,6 +3,7 @@ package kodlamaio.javahrms.business.concretes;
 import kodlamaio.javahrms.business.abstracts.JobSeekerLanguageService;
 import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.JobSeekerLanguageDao;
+import kodlamaio.javahrms.entities.concretes.JobSeekerJobExperience;
 import kodlamaio.javahrms.entities.concretes.JobSeekerLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,27 @@ public class JobSeekerLanguageManager implements JobSeekerLanguageService {
         }
         this.jobSeekerLanguageDao.save(jobSeekerLanguage);
         return new SuccessResult(true," yabancı dil bilgisi eklendi");
+    }
+
+    @Override
+    public Result delete(int id) {
+        if(this.jobSeekerLanguageDao.findById(id)==null){
+            return new ErrorResult(false,"Böyle bir dil bilgisi yok");
+        }
+        this.jobSeekerLanguageDao.deleteById(id);
+        return new SuccessResult(true,"Dil bilgisi silindi");
+    }
+
+    @Override
+    public Result update(JobSeekerLanguage jobSeekerLanguage, int id) {
+        for (int i=0;i<this.jobSeekerLanguageDao.findAll().size();i++){
+            JobSeekerLanguage jSL=this.jobSeekerLanguageDao.getById(i);
+            if(jSL.getId()==id){
+                this.jobSeekerLanguageDao.findAll().set(i,jobSeekerLanguage);
+                return new SuccessResult();
+            }
+        }
+        return new ErrorResult(false,"Dil bilgisi güncellenemedi");
     }
 
     @Override

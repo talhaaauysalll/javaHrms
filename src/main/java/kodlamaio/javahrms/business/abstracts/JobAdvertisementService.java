@@ -12,5 +12,7 @@ public interface JobAdvertisementService {
     DataResult<List<EmployerJobTitleWithJobAdvertisementDto>> findByAllActiveJobPostingsSortByDate();
     DataResult<List<EmployerJobTitleWithJobAdvertisementDto>> findByAllActiveJobPostingsForACompany(String companyName);
     Result add(JobAdvertisement jobAdvertisement);
+    Result update(JobAdvertisement jobAdvertisement,int id);
+    Result delete(int id);
     Result setJobAdvertisementIsActive(boolean advertisementIsActive,int id);
 }

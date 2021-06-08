@@ -11,4 +11,6 @@ public interface JobSeekerEducationService {
     DataResult<List<JobSeekerEducation>> findAllByJobSeekerIdOrderBySchoolEndDateDesc(int id);
     DataResult<List<JobSeekerEducation>> findAllByJobSeekerId(int id);
     Result add(JobSeekerEducation jobSeekerEducation);
+    Result delete(int id);
+    Result update(JobSeekerEducation jobSeekerEducation,int id);
 }

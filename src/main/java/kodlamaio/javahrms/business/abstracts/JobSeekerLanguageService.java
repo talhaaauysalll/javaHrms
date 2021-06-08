@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface JobSeekerLanguageService {
     Result add(JobSeekerLanguage jobSeekerLanguage);
+    Result delete(int id);
+    Result update(JobSeekerLanguage jobSeekerLanguage,int id);
     DataResult<JobSeekerLanguage> findById(int id);
     DataResult<List<JobSeekerLanguage>> findAllByJobSeekerId(int id);
 }

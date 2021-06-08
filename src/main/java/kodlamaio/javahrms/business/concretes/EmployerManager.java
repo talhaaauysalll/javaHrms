@@ -2,10 +2,7 @@ package kodlamaio.javahrms.business.concretes;
 
 import kodlamaio.javahrms.business.abstracts.EmployerService;
 import kodlamaio.javahrms.business.abstracts.JobAdvertisementService;
-import kodlamaio.javahrms.core.utilities.results.DataResult;
-import kodlamaio.javahrms.core.utilities.results.Result;
-import kodlamaio.javahrms.core.utilities.results.SuccessDataResult;
-import kodlamaio.javahrms.core.utilities.results.SuccessResult;
+import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.EmployerDao;
 import kodlamaio.javahrms.entities.concretes.Employer;
 import kodlamaio.javahrms.entities.concretes.JobAdvertisement;
@@ -39,9 +36,42 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
+    public Result update(Employer employer,int id) {
+        for(int i=0;i<this.employerDao.findAll().size();i++){
+            Employer eL=this.employerDao.getById(id);
+            if(eL.getId()==id){
+                this.employerDao.findAll().set(i,employer);
+                return new SuccessResult(true,"İş veren bilgileri başarılı bir şekilde güncellendi");
+            }
+        }
+        return new ErrorResult(false,"İş veren bilgileri güncellenemedi");
+    }
+
+    @Override
+    public Result delete(int id) {
+        if(this.employerDao.findById(id)==null){
+            return new ErrorResult(false,"İş Veren Bulunamadı");
+        }
+        this.employerDao.deleteById(id);
+        return new SuccessResult(true,"İş veren başarılı bir şekilde silindi");
+    }
+
+    @Override
     public Result addJobAdvertisement(JobAdvertisement jobAdvertisement) {
         this.jobAdvertisementService.add(jobAdvertisement);
         return new SuccessResult(true,"İş ilanı eklendi");
+    }
+
+    @Override
+    public Result deleteJobAdvertisement(int id) {
+        this.jobAdvertisementService.delete(id);
+        return new SuccessResult(true,"İş İlanı Silindi");
+    }
+
+    @Override
+    public Result updateJobAdvertisement(JobAdvertisement jobAdvertisement,int id) {
+        this.jobAdvertisementService.update(jobAdvertisement,id);
+        return new SuccessResult(true,"İş ilanı güncellendi");
     }
 
     @Override

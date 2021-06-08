@@ -3,6 +3,7 @@ package kodlamaio.javahrms.business.concretes;
 import kodlamaio.javahrms.business.abstracts.JobSeekerEducationService;
 import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.JobSeekerEducationDao;
+import kodlamaio.javahrms.entities.concretes.CurriculumVitae;
 import kodlamaio.javahrms.entities.concretes.JobSeekerEducation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,26 @@ public class JobSeekerEducationManager implements JobSeekerEducationService {
     public Result add(JobSeekerEducation jobSeekerEducation) {
         this.jobSeekerEducationDao.save(jobSeekerEducation);
         return new SuccessResult(true," eğitim bilgisi eklendi");
+    }
+
+    @Override
+    public Result delete(int id) {
+        if(this.jobSeekerEducationDao.findById(id)==null){
+            return new ErrorResult(false,"Böyle bir eğitim bilgisi yok");
+        }
+        this.jobSeekerEducationDao.deleteById(id);
+        return new SuccessResult(true,"Eğitim bilgisi silindi");
+    }
+
+    @Override
+    public Result update(JobSeekerEducation jobSeekerEducation, int id) {
+        for (int i=0;i<this.jobSeekerEducationDao.findAll().size();i++){
+            JobSeekerEducation jSE=this.jobSeekerEducationDao.getById(i);
+            if(jSE.getId()==id){
+                this.jobSeekerEducationDao.findAll().set(i,jobSeekerEducation);
+                return new SuccessResult();
+            }
+        }
+        return new ErrorResult(false,"Eğitim bilgisi güncellenemedi");
     }
 }

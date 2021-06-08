@@ -11,5 +11,7 @@ import java.util.List;
 
 public interface CurriculumVitaeService {
     Result add(CurriculumVitae curriculumVitae);
+    Result delete(int id);
+    Result update(CurriculumVitae curriculumVitae,int id);
     DataResult<List<CurriculumVitae>> findAllByJobSeekerId(int id);
 }

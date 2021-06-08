@@ -2,6 +2,7 @@ package kodlamaio.javahrms.api.controllers;
 
 import kodlamaio.javahrms.business.abstracts.EmployerService;
 import kodlamaio.javahrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.javahrms.entities.concretes.Employer;
 import kodlamaio.javahrms.entities.concretes.JobAdvertisement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +30,32 @@ public class EmployersController {
         return ResponseEntity.ok(this.employerService.getAll());
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@RequestBody Employer employer,@RequestParam(value = "id") int id){
+        return ResponseEntity.ok(this.employerService.update(employer,id));
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestParam(value = "id") int id){
+        return ResponseEntity.ok(this.employerService.delete(id));
+    }
+
+
     @PostMapping("/addJobAdvertisement")
     public ResponseEntity<?> addJobAdvertisement(@Valid @RequestBody JobAdvertisement jobAdvertisement){
         return ResponseEntity.ok(this.employerService.addJobAdvertisement(jobAdvertisement));
     }
 
-    @PostMapping("setJobAdvertisementIsActive")
+    @DeleteMapping("/deleteJobAdvertisement")
+    public ResponseEntity<?> deleteJobAdvertisement(@RequestParam(value = "id") int id){
+        return ResponseEntity.ok(this.employerService.deleteJobAdvertisement(id));
+    }
+
+    @PutMapping("/updateJobAdvertisement")
+    public ResponseEntity<?> updateJobAdvertisement(@RequestBody JobAdvertisement jobAdvertisement,@RequestParam(value = "id") int id){
+        return ResponseEntity.ok(this.employerService.updateJobAdvertisement(jobAdvertisement,id));
+    }
+
+    @PostMapping("/setJobAdvertisementIsActive")
     public ResponseEntity<?> setJobAdvertisementIsActive(@RequestParam("isActive") boolean advertisementIsActive,@RequestParam("id") int id){
         return ResponseEntity.ok(this.employerService.setJobAdvertisementIsActive(advertisementIsActive,id));
     }
