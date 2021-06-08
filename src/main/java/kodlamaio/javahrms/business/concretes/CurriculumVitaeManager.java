@@ -47,14 +47,8 @@ public class CurriculumVitaeManager implements CurriculumVitaeService {
 
     @Override
     public Result update(CurriculumVitae curriculumVitae, int id) {
-        for (int i=0;i<this.curriculumVitaeDao.findAll().size();i++){
-            CurriculumVitae cV=this.curriculumVitaeDao.getById(i);
-            if(cV.getId()==id){
-                this.curriculumVitaeDao.findAll().set(i,curriculumVitae);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"Öz geçmiş güncellenemedi");
+        this.curriculumVitaeDao.update(curriculumVitae.getCoverLetter(),curriculumVitae.getGithubLink(),curriculumVitae.getLinkedinLink(),curriculumVitae.getLearningTechnologiesOrProgrammingLanguages(),id);
+        return new SuccessResult(true,"Öz Geçmiş Bilgisi Başarılı bir şekilde güncellendi");
     }
 
     @Override

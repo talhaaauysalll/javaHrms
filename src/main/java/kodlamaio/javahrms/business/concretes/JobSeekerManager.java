@@ -54,14 +54,8 @@ public class JobSeekerManager implements JobSeekerService {
 
     @Override
     public Result update(JobSeeker jobSeeker, int id) {
-        for (int i=0;i<this.jobSeekerDao.findAll().size();i++){
-            JobSeeker jS=this.jobSeekerDao.getById(i);
-            if(jS.getId()==id){
-                this.jobSeekerDao.findAll().set(i,jobSeeker);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"İş arayan bilgileri güncellenemedi");
+       this.jobSeekerDao.update(jobSeeker.getFirstName(),jobSeeker.getLastName(),jobSeeker.getBirthYear(),jobSeeker.getNationalityId(),id);
+       return new SuccessResult(true,"İş arayan bilgileri güncellendi");
     }
 
     @Override
@@ -113,25 +107,25 @@ public class JobSeekerManager implements JobSeekerService {
     }
 
     @Override
-    public Result uptadedJobSeekerEducation(JobSeekerEducation jobSeekerEducation, int id) {
+    public Result updatedJobSeekerEducation(JobSeekerEducation jobSeekerEducation, int id) {
         this.jobSeekerEducationService.update(jobSeekerEducation,id);
         return new SuccessResult(true,"Eğitim bilgisi güncellendi");
     }
 
     @Override
-    public Result uptadedJobExperience(JobSeekerJobExperience jobSeekerJobExperience, int id) {
+    public Result updatedJobExperience(JobSeekerJobExperience jobSeekerJobExperience, int id) {
         this.jobSeekerJobExperienceService.update(jobSeekerJobExperience,id);
         return new SuccessResult(true,"İş deneyimi bilgisi güncellendi");
     }
 
     @Override
-    public Result uptadedJobSeekerLanguage(JobSeekerLanguage jobSeekerLanguage, int id) {
+    public Result updatedJobSeekerLanguage(JobSeekerLanguage jobSeekerLanguage, int id) {
         this.jobSeekerLanguageService.update(jobSeekerLanguage,id);
         return new SuccessResult(true,"Dil bilgisi güncellendi");
     }
 
     @Override
-    public Result uptadedCirriculumVitae(CurriculumVitae curriculumVitae, int id) {
+    public Result updatedCirriculumVitae(CurriculumVitae curriculumVitae, int id) {
         this.curriculumVitaeService.update(curriculumVitae,id);
         return new SuccessResult(true,"Öz geçmiş bilgisi güncellendi");
     }

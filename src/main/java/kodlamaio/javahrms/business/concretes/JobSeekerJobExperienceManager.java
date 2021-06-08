@@ -61,13 +61,7 @@ public class JobSeekerJobExperienceManager implements JobSeekerJobExperienceServ
 
     @Override
     public Result update(JobSeekerJobExperience jobSeekerJobExperience, int id) {
-        for (int i=0;i<this.jobSeekerJobExperienceDao.findAll().size();i++){
-            JobSeekerJobExperience jSJE=this.jobSeekerJobExperienceDao.getById(i);
-            if(jSJE.getId()==id){
-                this.jobSeekerJobExperienceDao.findAll().set(i,jobSeekerJobExperience);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"İş deneyimi güncellenemedi");
+        this.jobSeekerJobExperienceDao.update(jobSeekerJobExperience.getWorkPlaceName(),jobSeekerJobExperience.getPositionAtWork(),jobSeekerJobExperience.getJobStartDate(),jobSeekerJobExperience.getJobEndDate(),id);
+        return new SuccessResult(true,"İş deneyimi güncellendi");
     }
 }

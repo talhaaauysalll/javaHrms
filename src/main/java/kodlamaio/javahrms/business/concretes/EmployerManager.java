@@ -37,14 +37,8 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result update(Employer employer,int id) {
-        for(int i=0;i<this.employerDao.findAll().size();i++){
-            Employer eL=this.employerDao.getById(id);
-            if(eL.getId()==id){
-                this.employerDao.findAll().set(i,employer);
-                return new SuccessResult(true,"İş veren bilgileri başarılı bir şekilde güncellendi");
-            }
-        }
-        return new ErrorResult(false,"İş veren bilgileri güncellenemedi");
+        this.employerDao.update(employer.getCompanyName(),employer.getPhoneNumber(),employer.getWebSite(),id);
+        return new SuccessResult(true,"İş veren bilgileri başarılı bir şekilde güncellendi");
     }
 
     @Override

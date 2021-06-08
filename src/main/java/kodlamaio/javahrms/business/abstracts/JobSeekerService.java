@@ -25,10 +25,10 @@ public interface JobSeekerService {
     Result deletedJobSeekerLanguage(int id);
     Result deletedCurriculumVitae(int id);
 
-    Result uptadedJobSeekerEducation(JobSeekerEducation jobSeekerEducation,int id);
-    Result uptadedJobExperience(JobSeekerJobExperience jobSeekerJobExperience,int id);
-    Result uptadedJobSeekerLanguage(JobSeekerLanguage jobSeekerLanguage,int id);
-    Result uptadedCirriculumVitae(CurriculumVitae curriculumVitae,int id);
+    Result updatedJobSeekerEducation(JobSeekerEducation jobSeekerEducation,int id);
+    Result updatedJobExperience(JobSeekerJobExperience jobSeekerJobExperience,int id);
+    Result updatedJobSeekerLanguage(JobSeekerLanguage jobSeekerLanguage,int id);
+    Result updatedCirriculumVitae(CurriculumVitae curriculumVitae,int id);
 
     DataResult<JobSeekerCvDto>createCv(int id);
     DataResult<List<JobSeeker>> getAll();

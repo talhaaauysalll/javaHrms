@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class CurriculumVitae {
     @Id
     @SequenceGenerator(name="seq_curriculumvitae",allocationSize = 1)

@@ -23,6 +23,9 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
     @Override
     public DataResult<List<EmployerJobTitleWithJobAdvertisementDto>> findByAllActiveJobPostings() {
+        if(this.jobAdvertisementDao.findByAllActiveJobPostings().size()==0){
+            return new ErrorDataResult<List<EmployerJobTitleWithJobAdvertisementDto>>(null,"İş İlanı Yok");
+        }
         return new SuccessDataResult<List<EmployerJobTitleWithJobAdvertisementDto>>(this.jobAdvertisementDao.findByAllActiveJobPostings(),"Bütün aktif iş ilanları listelendi");
     }
 
@@ -44,14 +47,10 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
     @Override
     public Result update(JobAdvertisement jobAdvertisement,int id) {
-        for (int i=0;i<this.jobAdvertisementDao.findAll().size();i++){
-            JobAdvertisement jA=this.jobAdvertisementDao.getById(i);
-            if(jA.getId()==id){
-                this.jobAdvertisementDao.findAll().set(i,jobAdvertisement);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"İş ilanı güncellenemedi");
+        this.jobAdvertisementDao.update(jobAdvertisement.getApplicationDeadline(),
+                jobAdvertisement.getReleaseDate(),jobAdvertisement.getNumberOfOpenPositions(),
+                jobAdvertisement.getMaxSalary(),jobAdvertisement.getMinSalary(),id);
+        return new SuccessResult(true,"İş ilanı başarılı bir şekilde güncellendi");
     }
 
     @Override

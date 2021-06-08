@@ -17,7 +17,6 @@ public class JobSeekerEducationManager implements JobSeekerEducationService {
 
     @Autowired
     public JobSeekerEducationManager(JobSeekerEducationDao jobSeekerEducationDao) {
-        super();
         this.jobSeekerEducationDao = jobSeekerEducationDao;
     }
 
@@ -51,7 +50,7 @@ public class JobSeekerEducationManager implements JobSeekerEducationService {
 
     @Override
     public Result delete(int id) {
-        if(this.jobSeekerEducationDao.findById(id)==null){
+        if(this.jobSeekerEducationDao.findByJobSeekerId(id)==null){
             return new ErrorResult(false,"Böyle bir eğitim bilgisi yok");
         }
         this.jobSeekerEducationDao.deleteById(id);
@@ -60,13 +59,7 @@ public class JobSeekerEducationManager implements JobSeekerEducationService {
 
     @Override
     public Result update(JobSeekerEducation jobSeekerEducation, int id) {
-        for (int i=0;i<this.jobSeekerEducationDao.findAll().size();i++){
-            JobSeekerEducation jSE=this.jobSeekerEducationDao.getById(i);
-            if(jSE.getId()==id){
-                this.jobSeekerEducationDao.findAll().set(i,jobSeekerEducation);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"Eğitim bilgisi güncellenemedi");
+        this.jobSeekerEducationDao.update(jobSeekerEducation.getSchoolName(),jobSeekerEducation.getDepartmentAtSchool(),jobSeekerEducation.getSchoolStartDate(),jobSeekerEducation.getSchoolEndDate(),id);
+        return new SuccessResult(true,"Eğitim bilgisi güncellendi");
     }
 }

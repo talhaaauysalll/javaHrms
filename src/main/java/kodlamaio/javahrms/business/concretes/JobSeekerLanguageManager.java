@@ -44,14 +44,8 @@ public class JobSeekerLanguageManager implements JobSeekerLanguageService {
 
     @Override
     public Result update(JobSeekerLanguage jobSeekerLanguage, int id) {
-        for (int i=0;i<this.jobSeekerLanguageDao.findAll().size();i++){
-            JobSeekerLanguage jSL=this.jobSeekerLanguageDao.getById(i);
-            if(jSL.getId()==id){
-                this.jobSeekerLanguageDao.findAll().set(i,jobSeekerLanguage);
-                return new SuccessResult();
-            }
-        }
-        return new ErrorResult(false,"Dil bilgisi güncellenemedi");
+        this.jobSeekerLanguageDao.update(jobSeekerLanguage.getLanguageName(),jobSeekerLanguage.getLanguageLevel(),id);
+        return new SuccessResult(true,"Dil bilgisi güncellendi");
     }
 
     @Override

@@ -56,23 +56,20 @@ public class AuthManager implements AuthService {
         if(checkIfPasswordMatches(employer.getPassword(), employer.getPasswordRepeat())){
             return new ErrorResult(false,"Parolalar uyuşmuyor");
         }
-        if(checkIfEmailMatchesWithWebsite(employer.getWebSite(),employer.getEmail())){
+        if(!checkIfEmailMatchesWithWebsite(employer.getWebSite(),employer.getEmail())){
             return new ErrorResult(false,"Mail adresi ve web site adresi uyuşmuyor");
         }
 
         this.employerService.add(employer);
-        return new SuccessResult(true,"Sistem personeli tarafından kayıt onayı bekliyorsunuz" +
+        return new SuccessResult(true,"Sistem personeli tarafından kayıt onayı bekliyorsunuz " +
                     "yanda yer alan kodu giriniz "+codeGeneratorService.deriveCode());
-
-
-
     }
 
     public boolean checkIfEmailMatchesWithWebsite(String webSite,String email){
-        if(!email.contains(webSite)){
-            return false;
+        if(email.contains(webSite)){
+            return true;
         }
-        return true;
+        return false;
     }
 
 

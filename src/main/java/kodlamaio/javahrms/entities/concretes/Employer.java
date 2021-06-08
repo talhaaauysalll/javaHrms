@@ -1,5 +1,6 @@
 package kodlamaio.javahrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kodlamaio.javahrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class Employer extends User {
     @NotBlank(message = "Bu alan boş bırakılamaz")
     private String passwordRepeat;
 
+    @JsonIgnore()
     @OneToMany(mappedBy = "employer")
     private List<JobAdvertisement> jobAdvertisements;
 }
