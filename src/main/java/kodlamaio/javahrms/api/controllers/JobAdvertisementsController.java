@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/jobadvertisements")
+@CrossOrigin
 public class JobAdvertisementsController {
 
     private JobAdvertisementService jobAdvertisementService;
@@ -38,6 +39,10 @@ public class JobAdvertisementsController {
     @GetMapping("/findByAllActiveJobPostingsForACompany")
     public ResponseEntity<?> findByAllActiveJobPostingsForACompany(@RequestParam("companyName") String companyName){
         return ResponseEntity.ok(this.jobAdvertisementService.findByAllActiveJobPostingsForACompany(companyName));
+    }
+    @GetMapping("/findByAllDeActiveJobPostings")
+    public ResponseEntity<?> findByAllDeActiveJobPostings(){
+        return ResponseEntity.ok(this.jobAdvertisementService.findByAllDeActiveJobPostings());
     }
 
 

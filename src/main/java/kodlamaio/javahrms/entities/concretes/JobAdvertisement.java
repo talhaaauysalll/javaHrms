@@ -1,13 +1,13 @@
 package kodlamaio.javahrms.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -34,6 +34,14 @@ public class JobAdvertisement {
     @JoinColumn(name="city_id",nullable = false)
     private City city;
 
+    @ManyToOne()
+    @JoinColumn(name="work_time_id",nullable = false)
+    private WorkTime workTime;
+
+    @ManyToOne()
+    @JoinColumn(name="work_type_id",nullable = false)
+    private WorkType workType;
+
     @Column(name = "min_salary")
     private double minSalary;
 
@@ -49,8 +57,8 @@ public class JobAdvertisement {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "dd-MM-yyyy")
     @Column(name="release_date")
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
-    @Column(name="is_active",nullable = false)
+    @Column(name="is_active")
     private boolean isActive;
 }

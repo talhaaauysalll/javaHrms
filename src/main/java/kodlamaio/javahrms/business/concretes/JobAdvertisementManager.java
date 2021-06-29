@@ -9,6 +9,7 @@ import kodlamaio.javahrms.entities.dtos.EmployerJobTitleWithJobAdvertisementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,7 +41,15 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     }
 
     @Override
+    public DataResult<List<EmployerJobTitleWithJobAdvertisementDto>> findByAllDeActiveJobPostings() {
+        return new SuccessDataResult<List<EmployerJobTitleWithJobAdvertisementDto>>(this.jobAdvertisementDao.findByAllDeActiveJobPostings());
+    }
+
+    @Override
     public Result add(JobAdvertisement jobAdvertisement) {
+        LocalDate localDate=LocalDate.now();
+        jobAdvertisement.setReleaseDate(localDate);
+        jobAdvertisement.setActive(false);
         this.jobAdvertisementDao.save(jobAdvertisement);
         return new SuccessResult();
     }
@@ -48,7 +57,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     @Override
     public Result update(JobAdvertisement jobAdvertisement,int id) {
         this.jobAdvertisementDao.update(jobAdvertisement.getApplicationDeadline(),
-                jobAdvertisement.getReleaseDate(),jobAdvertisement.getNumberOfOpenPositions(),
+                jobAdvertisement.getNumberOfOpenPositions(),
                 jobAdvertisement.getMaxSalary(),jobAdvertisement.getMinSalary(),id);
         return new SuccessResult(true,"İş ilanı başarılı bir şekilde güncellendi");
     }

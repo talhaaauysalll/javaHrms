@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -19,7 +20,7 @@ public class EmployerJobTitleWithJobAdvertisementDto {
     private int numberOfOpenPositions;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applicationDate;

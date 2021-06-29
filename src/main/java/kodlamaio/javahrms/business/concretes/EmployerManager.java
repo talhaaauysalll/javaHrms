@@ -17,10 +17,12 @@ public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
     private JobAdvertisementService jobAdvertisementService;
 
+
     @Autowired
     public EmployerManager(EmployerDao employerDao, JobAdvertisementService jobAdvertisementService) {
         this.employerDao = employerDao;
         this.jobAdvertisementService = jobAdvertisementService;
+
     }
 
 
@@ -52,6 +54,7 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result addJobAdvertisement(JobAdvertisement jobAdvertisement) {
+
         this.jobAdvertisementService.add(jobAdvertisement);
         return new SuccessResult(true,"İş ilanı eklendi");
     }
