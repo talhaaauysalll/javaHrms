@@ -6,6 +6,7 @@ import kodlamaio.javahrms.core.utilities.results.*;
 import kodlamaio.javahrms.dataAccess.abstracts.JobAdvertisementDao;
 import kodlamaio.javahrms.entities.concretes.JobAdvertisement;
 import kodlamaio.javahrms.entities.dtos.EmployerJobTitleWithJobAdvertisementDto;
+import kodlamaio.javahrms.entities.dtos.JobAdvertisementDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
     @Override
     public DataResult<List<EmployerJobTitleWithJobAdvertisementDto>> findByAllDeActiveJobPostings() {
         return new SuccessDataResult<List<EmployerJobTitleWithJobAdvertisementDto>>(this.jobAdvertisementDao.findByAllDeActiveJobPostings());
+    }
+
+    @Override
+    public DataResult<List<JobAdvertisementDto>> findByAll() {
+        return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.findByAll());
     }
 
     @Override

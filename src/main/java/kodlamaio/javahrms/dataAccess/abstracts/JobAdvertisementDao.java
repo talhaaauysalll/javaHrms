@@ -2,6 +2,7 @@ package kodlamaio.javahrms.dataAccess.abstracts;
 
 import kodlamaio.javahrms.entities.concretes.JobAdvertisement;
 import kodlamaio.javahrms.entities.dtos.EmployerJobTitleWithJobAdvertisementDto;
+import kodlamaio.javahrms.entities.dtos.JobAdvertisementDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,6 +23,11 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement,Inte
             "(e.companyName,jobTitle.jobTitleName,j.numberOfOpenPositions,j.releaseDate,j.applicationDeadline)" +
             "FROM JobAdvertisement j INNER JOIN j.employer e INNER JOIN j.jobTitle jobTitle WHERE j.isActive=false")
     List<EmployerJobTitleWithJobAdvertisementDto> findByAllDeActiveJobPostings();
+
+    @Query("select new kodlamaio.javahrms.entities.dtos.JobAdvertisementDto" +
+            "(j.id,jobTitle.jobTitleName,e.companyName,c.cityName,workTime.workTimesName,workType.workTypesName,j.minSalary,j.maxSalary,j.numberOfOpenPositions,j.releaseDate,j.applicationDeadline)" +
+            "FROM JobAdvertisement j INNER JOIN j.employer e INNER JOIN j.jobTitle jobTitle INNER JOIN j.city c inner join j.workTime workTime inner join j.workType workType where j.isActive=false ")
+    List<JobAdvertisementDto> findByAll();
 
     @Query("SELECT new kodlamaio.javahrms.entities.dtos.EmployerJobTitleWithJobAdvertisementDto" +
             "(e.companyName,jobTitle.jobTitleName,j.numberOfOpenPositions,j.releaseDate,j.applicationDeadline)" +

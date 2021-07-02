@@ -44,6 +44,10 @@ public class JobAdvertisementsController {
     public ResponseEntity<?> findByAllDeActiveJobPostings(){
         return ResponseEntity.ok(this.jobAdvertisementService.findByAllDeActiveJobPostings());
     }
+    @GetMapping("/findByAll")
+    public ResponseEntity<?> findByAll(){
+        return ResponseEntity.ok(this.jobAdvertisementService.findByAll());
+    }
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
